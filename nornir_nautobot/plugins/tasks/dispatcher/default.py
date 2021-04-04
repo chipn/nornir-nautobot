@@ -26,6 +26,7 @@ RUN_COMMAND_MAPPING = {
     "cisco_xr": "show run",
     "juniper_junos": "show configuration | display set",
     "arista_eos": "show run",
+    "ubiquiti_edgerouter": "show configuration commands"
 }
 
 

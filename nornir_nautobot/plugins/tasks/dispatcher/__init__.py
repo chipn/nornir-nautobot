@@ -16,6 +16,7 @@ _DEFAULT_DRIVERS_MAPPING = {
     "cisco_xr": "nornir_nautobot.plugins.tasks.dispatcher.cisco_xr",
     "juniper_junos": "nornir_nautobot.plugins.tasks.dispatcher.juniper_junos",
     "arista_eos": "nornir_nautobot.plugins.tasks.dispatcher.arista_eos",
+    "ubiquiti_edgerouter": "nornir_nautobot.plugins.tasks.dispatcher.ubiquiti_edgerouter"
 }
 
 

@@ -278,26 +278,18 @@ def _substitute_lines(config, substitute_lines):
         config (str): A string that represent the configuration of a device.
         substitute_lines (list): List of dictionaries representing the replacement. Each list item is a dictionary in the
         {
-            "regex_replacement": "<redacted_config>",
-            "regex_search": "username\\s+\\S+\\spassword\\s+5\\s+(\\S+)\\s+role\\s+\\S+"
+            "regex_replacement": "\g<1><redacted_config>\g<3>",
+            "regex_search": "(username\\s+\\S+\\spassword\\s+5\\s+)(\\S+)(\\s+role\\s+\\S+)"
         }
 
     Returns:
         config: The parse configuration, which has the lines swapped based on regex replacements.
     """
     if substitute_lines:
-        new_config = ""
+        new_config = config
 
-        # Loop through the config lines
-        for line in config.split("\n"):
-            # Loop through the replacement list on each line in the config
-            for item in substitute_lines:
-                if re.match(pattern=fr"{item['regex_search']}", string=line):
-                    line = line.replace(
-                        re.match(pattern=fr"{item['regex_search']}", string=line).groups()[0], item["regex_replacement"]
-                    )
+        # Loop through the replacement list and replace all matches in the config
+        for item in substitute_lines:
+            new_config = re.sub(fr"{item['regex_search']}", item["regex_replacement"], new_config, flags=re.MULTILINE)
 
-                new_config += line.rstrip() + "\n"
-
-        config = new_config
-    return config
+    return new_config
